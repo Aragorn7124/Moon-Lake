@@ -1,21 +1,26 @@
-#dir def
-SRC_DIR = vsrc
+# file dir
+VSRC_DIR = vsrc
 TB_DIR = tb
-INCLUDE_DIR = $(SRC_DIR)/include
+SIM_DIR = sim
+VCD_DIR = vcd
+INCLUDE = $(VSRC_DIR)/include
 
-#file def
-VSRCS = $(wildcard $(SRC_DIR)/*.v) $(TB_DIR)/Tb_top.v
-NAME ?= tb_top
+# file
+TB_NAME ?=
+VSRCS = $(wildcard $(VSRC_DIR)/*.v) $(TB_DIR)/$(TB_NAME).v
+VVP_FILE = $(addsuffix .vvp, $(TB_NAME))
+VCD_FILE = $(addsuffix .vcd, $(TB_NAME))
 
-
-#tool
+# tool
 CC = iverilog
+CC_FLAGS = -I $(INCLUDE)
 
+# cmd
 com: $(VSRCS)
-	$(CC) -I $(INCLUDE_DIR) -o $(NAME).vvp $(VSRCS)
+	$(CC) $(CC_FLAGS) -o $(VVP_FILE) $(VSRCS)
 
-vvp: com
-	vvp $(NAME).vvp
+sim: com
+	vvp $(VVP_FILE)
 
-look:
-	gtkwave Tb_Cpu.vcd
+look: sim
+	gtkwave $(VCD_FILE)

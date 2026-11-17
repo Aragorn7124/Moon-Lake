@@ -37,7 +37,7 @@ module Tb_top;
 
 // vcd
   initial begin
-    $dumpfile("Tb_Cpu.vcd");
+    $dumpfile("Tb_top.vcd");
     $dumpvars(0,Tb_top);
   end
 

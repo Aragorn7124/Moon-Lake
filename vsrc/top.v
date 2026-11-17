@@ -36,7 +36,7 @@ module top(
   );
 
 // ROM
-
+  reg [31:0] rom[0:1023];
 
   // init rom
     integer i;
@@ -48,7 +48,7 @@ module top(
     end
 
 // RAM
-
+  reg [31:0] ram[0:3071];
 
   // init ram
     integer y;
